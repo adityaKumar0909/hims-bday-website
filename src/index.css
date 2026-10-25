@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-paper: "Newsreader Variable", Georgia, serif;
+  --font-fraktur: "UnifrakturCook", "Old English Text MT", serif;
+  --font-hand: "Patrick Hand", "Comic Sans MS", cursive;
+
+  /* shadcn-style semantic tokens, in pink and red */
+  --color-background: #fff5f7;
+  --color-foreground: #4a0d22;
+  --color-card: #ffffff;
+  --color-muted: #ffe8ed;
+  --color-muted-foreground: #8a4a5c;
+  --color-border: #f6c3d0;
+  --color-input: #f2a9bb;
+  --color-ring: #d9143f;
+  --color-primary: #d9143f;
+  --color-primary-hover: #b30e32;
+  --color-primary-foreground: #fff5f7;
+  --color-secondary: #ffd3de;
+  --color-secondary-foreground: #6b1230;
+
+  --color-blush-100: #ffe8ed;
+  --color-blush-200: #ffd3de;
+  --color-strawberry: #ff7b9c;
+  --color-cherry: #d9143f;
+  --color-cherry-deep: #b30e32;
+  --color-wine: #4a0d22;
+  --color-ember: #2c0715;
+}
+
+html, body, #root { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--color-cherry); color: #fff; }
+:focus-visible { outline: 3px solid color-mix(in oklab, var(--color-ring) 55%, transparent); outline-offset: 2px; }
+
+/* native <dialog> styling (shadcn Dialog look) */
+dialog.sheet {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 0;
+  background: var(--color-card);
+  color: var(--color-foreground);
+  box-shadow: 0 30px 80px -20px rgba(74, 13, 34, 0.45);
+  max-width: min(92vw, 28rem);
+  margin: auto;
+}
+dialog.sheet::backdrop { background: rgba(44, 7, 21, 0.55); backdrop-filter: blur(3px); }
+dialog.sheet[open] { animation: pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+@keyframes pop { from { transform: scale(0.94); opacity: 0; } }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.shake { animation: shake 0.45s ease-in-out; }
+
+/* flames + smoke */
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) rotate(-1.5deg); }
+  35% { transform: scale(0.94, 1.08) rotate(2deg); }
+  70% { transform: scale(1.04, 0.95) rotate(-2.5deg); }
+}
+.flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker 0.7s ease-in-out infinite;
+}
+.flame-wrap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 0.12s linear;
+  transform: scaleY(calc(1 - var(--blow, 0) * 0.45)) skewX(calc(var(--blow, 0) * -28deg));
+}
+.flame-out { opacity: 0; transform: scale(0.2); animation: none; transition: opacity 0.25s, transform 0.25s; }
+@keyframes smoke {
+  0% { opacity: 0; transform: translateY(0) scaleX(1); }
+  20% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-46px) scaleX(1.6); }
+}
+.smoke { animation: smoke 1.8s ease-out forwards; transform-box: fill-box; transform-origin: 50% 100%; }
+
+@keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+.breathe { animation: breathe 3.2s ease-in-out infinite; }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+.blink { transform-box: fill-box; transform-origin: 50% 50%; animation: blink 4.5s infinite; }
+
+@keyframes heart-rise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(-190px) scale(1.1); opacity: 0; }
+}
+.heart-rise { animation: heart-rise 3.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flame, .breathe, .blink, .heart-rise, .smoke { animation: none; }
+}
+
+dialog.sheet.sheet-wide { max-width: min(94vw, 42rem); width: 100%; }

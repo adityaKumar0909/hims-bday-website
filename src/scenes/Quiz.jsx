@@ -49,7 +49,7 @@ function Ticket() {
   return (
     <div className="relative rounded-2xl bg-cherry text-primary-foreground shadow-[0_26px_50px_-22px_rgba(179,14,50,.8)]">
       <div className="px-7 pt-7 pb-8">
-        <p className="text-sm text-blush-200">Amazon gift voucher</p>
+        <p className="text-sm text-blush-200">Myntra gift voucher</p>
         <p className="mt-1 font-display font-extrabold text-7xl leading-none tracking-[-0.04em]">₹{value}</p>
       </div>
       <div className="relative border-t-2 border-dashed border-blush-200/60">
@@ -152,7 +152,7 @@ export default function Quiz({ onRestart }) {
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mt-8">
             <h2 className="font-display font-bold text-2xl tracking-tight">Congratulations, {config.herName}!</h2>
             <p className="mt-2 mb-7 text-muted-foreground leading-relaxed">
-              You scored 100% and unlocked your grand Amazon gift voucher worth <b className="text-foreground">₹{config.coupon.value}</b>.
+              You scored 100% and unlocked your grand Myntra gift voucher worth <b className="text-foreground">₹{config.coupon.value}</b>.
             </p>
             <Ticket />
             <p className="mt-4 text-sm text-muted-foreground">{config.coupon.note}</p>
